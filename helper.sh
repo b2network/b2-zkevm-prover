@@ -4,6 +4,12 @@ init() {
     git submodule update
 }
 
+info(){
+    exec > "$FUNCNAME.log" 2>&1
+    # cloc .
+    # find * -iname "*.cpp" -o -iname "*.hpp" -o -iname "*.h" | wc -l
+    find * -iname "*.cpp" -o -iname "*.hpp" -o -iname "*.h" | xargs wc -l
+}
 run() {
     # pacman -Ss protobuf
     # pacman -S protobuf@23

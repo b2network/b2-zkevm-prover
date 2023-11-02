@@ -3,5 +3,7 @@ services:
   dev:
     image: zkprover-builder:20231007-110447
     command: sleep infinity
+    working_dir: /app
+    mem_limit: 10g
     volumes:
-    - $PWD:/app
+      - $PWD:/app
