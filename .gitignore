@@ -18,3 +18,4 @@ config/zkevm/*
 config/tmp
 runtime/*
 !runtime/README.md
+*.log

@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  dev:
+    image: zkprover-builder:20231007-110447
+    command: sleep infinity
+    volumes:
+    - $PWD:/app
