@@ -1,7 +1,12 @@
 version: "3.9"
 services:
   dev:
+    # image: zkprover-builder:20231103-091709
     image: zkprover-builder:20231007-110447
+    deploy:
+      resources:
+        limits:
+          memory: 20g
     command: sleep infinity
     working_dir: /app
     mem_limit: 10g
