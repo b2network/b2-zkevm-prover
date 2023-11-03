@@ -4,6 +4,13 @@ TARGET_MNG += mainGenerator
 TARGET_PLG += polsGenerator
 TARGET_TEST := zkProverTest
 
+IMAGE := ghcr.io/b2network/b2-zkevm-prover
+BUILDER_IMAGE := ghcr.io/b2network/b2-zkevm-prover-builder
+COMMIT_HASH := $(shell git rev-parse --short=7 HEAD)
+DATE=$(shell date +%Y%m%d-%H%M%S)
+DOCKER_TAG := ${DATE}-$(COMMIT_HASH)
+TMP_DIR:=$(shell mktemp -d)
+
 BUILD_DIR := ./build
 SRC_DIRS := ./src ./test ./tools
 
@@ -98,6 +105,20 @@ pols_generator: $(BUILD_DIR)/$(TARGET_PLG)
 $(BUILD_DIR)/$(TARGET_PLG): ./src/pols_generator/pols_generator.cpp
 	$(MKDIR_P) $(BUILD_DIR)
 	g++ -g ./src/pols_generator/pols_generator.cpp -o $@ -lgmp
+
+build-builder:
+	docker build --tag ${BUILDER_IMAGE}:${DOCKER_TAG} --file builder.Dockerfile ${TMP_DIR}
+	rm -rf ${TMP_DIR}
+
+build-image:
+	docker build -t ${IMAGE}:${DOCKER_TAG} .
+
+image-push:
+	docker push --all-tags ${IMAGE}
+	docker push --all-tags ${BUILDER_IMAGE}
+
+image-list:
+	docker images | grep ${IMAGE}
 
 .PHONY: clean
 

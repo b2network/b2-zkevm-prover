@@ -19,3 +19,4 @@ config/tmp
 runtime/*
 !runtime/README.md
 *.log
+tmp*
