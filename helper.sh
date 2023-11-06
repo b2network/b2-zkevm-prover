@@ -4,8 +4,8 @@ init() {
     git submodule update
 }
 
-info(){
-    exec > "$FUNCNAME.log" 2>&1
+info() {
+    exec >"$FUNCNAME.log" 2>&1
     # cloc .
     # find * -iname "*.cpp" -o -iname "*.hpp" -o -iname "*.h" | wc -l
     find * -iname "*.cpp" -o -iname "*.hpp" -o -iname "*.h" | xargs wc -l
@@ -42,5 +42,14 @@ builder() {
         --tag zkprover-builder:${DATE} \
         --file builder.Dockerfile \
         ./tmp
+}
+
+debugImage() {
+    docker run \
+        --rm \
+        -it \
+        ghcr.io/b2network/b2-zkevm-prover:20231106-082413-96f7c19 \
+        -c '/usr/src/app/config/config.json'
+        # --entrypoint bash \
 }
 $@
