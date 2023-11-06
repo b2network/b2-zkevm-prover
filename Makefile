@@ -111,10 +111,10 @@ build-builder:
 	rm -rf ${TMP_DIR}
 
 build-image:
-	docker build -t ${IMAGE}:${DOCKER_TAG} .
+	docker build --tag ${IMAGE}:${DOCKER_TAG} .
 
 image-push:
-	docker push --all-tags ${IMAGE}
+	# docker push --all-tags ${IMAGE}
 	docker push --all-tags ${BUILDER_IMAGE}
 
 image-list:
