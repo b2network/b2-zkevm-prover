@@ -118,7 +118,7 @@ image-push:
 	docker push --all-tags ${BUILDER_IMAGE}
 
 image-list:
-	docker images | grep ${IMAGE}
+	docker images | grep 'ghcr.io/b2network/'
 
 .PHONY: clean
 
